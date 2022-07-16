@@ -32,7 +32,7 @@ public class FilmController {
         return film;
     }
 
-    private void validateFilm(Film film) {
+    void validateFilm(Film film) {
         if (EMPTY_STRING.equals(film.getName())) {
             log.warn("Исключение. Name is empty. Объект из тела запроса:'{}'", film);
             throw new FilmIsNotCorrectException("Film is not correct. Name is empty.");

@@ -32,7 +32,7 @@ public class UserController {
         return user;
     }
 
-    private void validateUser(User user) {
+    void validateUser(User user) {
         String email = user.getEmail();
         if (EMPTY_STRING.equals(email) || !email.contains("@")) {
             log.warn("Исключение. Email is wrong. Объект из тела запроса:'{}'", user);
