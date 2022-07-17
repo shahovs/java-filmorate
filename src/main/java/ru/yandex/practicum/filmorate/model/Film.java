@@ -12,7 +12,7 @@ import java.time.LocalDate;
 public class Film {
 
     @EqualsAndHashCode.Exclude
-    Integer id;
+    Long id;
 
     String name;
     String description;

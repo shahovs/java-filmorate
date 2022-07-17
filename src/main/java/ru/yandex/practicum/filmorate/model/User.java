@@ -13,7 +13,7 @@ import java.time.LocalDate;
 public class User {
 
     @EqualsAndHashCode.Exclude
-    Integer id;
+    Long id;
 
     String login;
     String name;

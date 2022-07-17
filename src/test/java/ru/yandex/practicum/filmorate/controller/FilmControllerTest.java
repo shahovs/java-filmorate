@@ -1,5 +1,6 @@
 package ru.yandex.practicum.filmorate.controller;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.yandex.practicum.filmorate.model.Film;
 
@@ -8,30 +9,40 @@ import java.time.LocalDate;
 import static org.junit.jupiter.api.Assertions.*;
 
 class FilmControllerTest {
+    FilmController filmController;
+    Film film;
+
+    @BeforeEach
+    void init() {
+        filmController = new FilmController();
+        film = new Film(0L, "name", "description", LocalDate.now(), 1);
+    }
 
     @Test
-    void validateFilmControllerTest() {
-        final FilmController filmController = new FilmController();
-        final Film film = new Film(0, "name", "description", LocalDate.now(), 1);
-
+    void emptyNameTest() {
         film.setName("");
         assertThrows(RuntimeException.class, () -> filmController.validateFilm(film));
-        film.setName("name");
+    }
 
+    @Test
+    void tooLongDescriptionTest() {
         film.setDescription("123456789_123456789_123456789_123456789_123456789_123456789_123456789_123456789_" +
                 "123456789_123456789_123456789_123456789_123456789_123456789_123456789_123456789_123456789_" +
                 "123456789_123456789_123456789_123456789_123456789_123456789_123456789_123456789_123456789_");
         assertThrows(RuntimeException.class, () -> filmController.validateFilm(film));
-        film.setDescription("description");
+    }
 
+    @Test
+    void tooEarlyDataTest() {
         LocalDate localDate = LocalDate.of(1890, 1, 1);
         film.setReleaseDate(localDate);
         assertThrows(RuntimeException.class, () -> filmController.validateFilm(film));
-        film.setReleaseDate(LocalDate.now());
+    }
 
+    @Test
+    void notPositiveDurationTest() {
         film.setDuration(0);
         assertThrows(RuntimeException.class, () -> filmController.validateFilm(film));
-        film.setDuration(1);
     }
 
 }

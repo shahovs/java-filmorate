@@ -8,14 +8,16 @@ import ru.yandex.practicum.filmorate.model.User;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/users")
 @Slf4j
 public class UserController {
+    // оставил константу EMPTY_STRING здесь, т.к. она используется в валидации и в методе createUser()
     private final static String EMPTY_STRING = "";
-    private static HashMap<Integer, User> users = new HashMap<>();
-    private static int id = 0;
+    private static Map<Long, User> users = new HashMap<>();
+    private static long id = 0;
 
     @PostMapping
     public User createUser(@RequestBody User user) {
@@ -53,19 +55,15 @@ public class UserController {
     public User updateUser(@RequestBody User user) {
         log.info("Получен запрос к эндпоинту: PUT /users, Создан объект из тела запроса:'{}'", user);
         validateUser(user);
-        Integer id = user.getId();
+        Long id = user.getId();
         if (id == null) {
             throw new UserIsNotCorrectException("User's id is null");
         }
         if (!users.containsKey(id)) {
             throw new UserIsNotExistException("This user is not exist");
         }
-        User updatedUser = users.get(id);
-        updatedUser.setEmail(user.getEmail());
-        updatedUser.setLogin(user.getLogin());
-        updatedUser.setName(user.getName());
-        updatedUser.setBirthday(user.getBirthday());
-        return updatedUser;
+        users.put(id, user);
+        return user;
     }
 
     @GetMapping
