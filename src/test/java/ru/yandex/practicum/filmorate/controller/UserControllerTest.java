@@ -9,13 +9,13 @@ import java.time.LocalDate;
 import static org.junit.jupiter.api.Assertions.*;
 
 class UserControllerTest {
-    UserController userController;
-    User user;
+    private UserController userController;
+    private User user;
 
     @BeforeEach
     void init() {
         userController = new UserController();
-        user = new User(0L, "login", "name", "email@email.com", LocalDate.now());
+        user = new User(0L, "login", "name", "email@email.com", LocalDate.now(), null);
     }
 
     @Test

@@ -9,13 +9,13 @@ import java.time.LocalDate;
 import static org.junit.jupiter.api.Assertions.*;
 
 class FilmControllerTest {
-    FilmController filmController;
-    Film film;
+    private FilmController filmController;
+    private Film film;
 
     @BeforeEach
     void init() {
         filmController = new FilmController();
-        film = new Film(0L, "name", "description", LocalDate.now(), 1);
+        film = new Film(0L, "name", "description", LocalDate.now(), 1, null);
     }
 
     @Test
