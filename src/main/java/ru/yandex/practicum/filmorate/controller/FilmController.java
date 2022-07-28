@@ -36,7 +36,7 @@ public class FilmController {
         return filmService.addFilm(film);
     }
 
-    void validateFilm(Film film) { // todo remake
+    void validateFilm(Film film) {
         final String EMPTY_STRING = "";
         final LocalDate CINEMA_BIRTHDATE = LocalDate.of(1895, 12, 28);
 
