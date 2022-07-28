@@ -19,10 +19,8 @@ public class User {
     Long id;
 
     String login;
-//    @NotBlank // todo find import
     String name;
     String email;
-//    @Past // todo find import
     LocalDate birthday;
 
     @JsonIgnore

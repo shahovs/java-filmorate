@@ -2,20 +2,12 @@ package ru.yandex.practicum.filmorate.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.yandex.practicum.filmorate.exception.UserAlreadyExistException;
-import ru.yandex.practicum.filmorate.exception.UserIsNotCorrectException;
 import ru.yandex.practicum.filmorate.exception.UserIsNotExistException;
 import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.storage.UserStorage;
 
 import java.util.Collection;
 import java.util.List;
-    /*будет отвечать за такие операции с пользователями, как
-    добавление в друзья,
-    удаление из друзей,
-    вывод списка общих друзей.
-    Пока пользователям не надо одобрять заявки в друзья — добавляем сразу.
-     То есть если Лена стала другом Саши, то это значит, что Саша теперь друг Лены.*/
 
 @Service
 public class UserService {
@@ -93,6 +85,5 @@ public class UserService {
             throw new UserIsNotExistException("One or two users do not exist");
         }
     }
-
 
 }

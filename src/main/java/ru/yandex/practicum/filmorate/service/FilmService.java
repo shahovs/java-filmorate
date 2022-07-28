@@ -11,12 +11,6 @@ import ru.yandex.practicum.filmorate.storage.UserStorage;
 
 import java.util.Collection;
 import java.util.List;
-    /*будет отвечать за операции с фильмами, —
-    добавление и
-    удаление лайка,
-    (проверяем, что есть такой пользователь и есть такой фильм)
-    вывод 10 наиболее популярных фильмов по количеству лайков.
-    Пусть пока каждый пользователь может поставить лайк фильму только один раз.*/
 
 @Service
 public class FilmService {
