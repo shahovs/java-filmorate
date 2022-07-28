@@ -77,11 +77,8 @@ public class FilmController {
         filmService.deleteLike(filmId, userId);
     }
 
-    //GET /films/popular?count={count} — возвращает список из первых count фильмов по количеству лайков.
-    // Если значение параметра count не задано, верните первые 10
     @GetMapping("/popular")
     public List<Film> getMostPopularFilms(@RequestParam(defaultValue = "10") int count) {
-        //todo Сможет ли он записать параметр в int или нужно принимать строку String?
         log.info("Получен запрос к эндпоинту: GET /films/popular");
         return filmService.getMostPopularFilms(count);
     }

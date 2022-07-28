@@ -81,6 +81,8 @@ public class InMemoryUserStorage implements UserStorage {
         Set<Long> commonFriendsIds = new HashSet<>();
         commonFriendsIds.addAll(firstUser.getFriendsIds());
         commonFriendsIds.addAll(secondUser.getFriendsIds());
+        commonFriendsIds.remove(firstUser.getId());
+        commonFriendsIds.remove(secondUser.getId());
         return commonFriendsIds.stream()
                 .map(id -> users.get(id))
                 .filter(Objects::nonNull)
