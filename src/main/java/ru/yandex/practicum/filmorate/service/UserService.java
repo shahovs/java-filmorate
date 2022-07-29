@@ -11,10 +11,11 @@ import java.util.List;
 
 @Service
 public class UserService {
+
     private final static String EMPTY_STRING = "";
 
     @Autowired
-    UserStorage userStorage;
+    private UserStorage userStorage;
 
     public User getUser(Long userId) {
         User user = userStorage.getUser(userId);

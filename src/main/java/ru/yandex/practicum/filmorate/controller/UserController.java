@@ -15,10 +15,9 @@ import java.util.List;
 @RequestMapping("/users")
 @Slf4j
 public class UserController {
-    @Autowired
-    UserService userService;
 
-    private final static String EMPTY_STRING = "";
+    @Autowired
+    private UserService userService;
 
     @GetMapping("/{userId}")
     public User getUser(@PathVariable Long userId) {
@@ -41,6 +40,7 @@ public class UserController {
     }
 
     void validateUser(User user) {
+        final String EMPTY_STRING = "";
         String email = user.getEmail();
         if (EMPTY_STRING.equals(email) || !email.contains("@")) {
             log.warn("Исключение. Email is wrong. Объект из тела запроса:'{}'", user);

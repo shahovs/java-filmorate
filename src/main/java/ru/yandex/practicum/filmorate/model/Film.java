@@ -16,14 +16,14 @@ import java.util.Set;
 public class Film {
 
     @EqualsAndHashCode.Exclude
-    Long id;
+    private Long id;
 
-    String name;
-    String description;
-    LocalDate releaseDate;
-    int duration;
+    private String name;
+    private String description;
+    private LocalDate releaseDate;
+    private int duration;
 
     @JsonIgnore
-    Set<Long> usersIdsLikes = new HashSet<>();
+    private final Set<Long> usersIdsLikes = new HashSet<>();
 
 }

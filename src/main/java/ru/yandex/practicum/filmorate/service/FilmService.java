@@ -16,10 +16,10 @@ import java.util.List;
 public class FilmService {
 
     @Autowired
-    FilmStorage filmStorage;
+    private FilmStorage filmStorage;
 
     @Autowired
-    UserStorage userStorage;
+    private UserStorage userStorage;
 
     public Film getFilm(Long filmId) {
         Film film = filmStorage.getFilm(filmId);

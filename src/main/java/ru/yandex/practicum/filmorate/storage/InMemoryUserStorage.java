@@ -12,8 +12,8 @@ import java.util.stream.Collectors;
 @Component
 public class InMemoryUserStorage implements UserStorage {
 
-    Long generator = 0L;
-    Map<Long, User> users = new HashMap<>();
+    private Long generator = 0L;
+    private final Map<Long, User> users = new HashMap<>();
 
     @Override
     public User getUser(Long userId) {
@@ -64,7 +64,7 @@ public class InMemoryUserStorage implements UserStorage {
     @Override
     public List<User> getAllFriends(User user) {
         return user.getFriendsIds().stream()
-                .map(id -> users.get(id))
+                .map(users::get)
                 .filter(Objects::nonNull)
                 .collect(Collectors.toList());
     }
@@ -77,7 +77,7 @@ public class InMemoryUserStorage implements UserStorage {
         commonFriendsIds.remove(firstUser.getId());
         commonFriendsIds.remove(secondUser.getId());
         return commonFriendsIds.stream()
-                .map(id -> users.get(id))
+                .map(users::get)
                 .filter(Objects::nonNull)
                 .collect(Collectors.toList());
     }

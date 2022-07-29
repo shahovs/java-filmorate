@@ -12,12 +12,12 @@ import java.util.stream.Collectors;
 
 @Component
 public class InMemoryFilmStorage implements FilmStorage {
-    Long generator = 0L;
-    Map<Long, Film> films = new HashMap<>();
+
+    private Long generator = 0L;
+    private final Map<Long, Film> films = new HashMap<>();
 
     @Override
     public Film getFilm(Long filmId) {
-
         return films.get(filmId);
     }
 
@@ -62,7 +62,7 @@ public class InMemoryFilmStorage implements FilmStorage {
     @Override
     public List<Film> getMostPopularFilms(int count) {
         return films.values().stream()
-                .sorted((film1,  film2) -> film2.getUsersIdsLikes().size() - film1.getUsersIdsLikes().size())
+                .sorted((film1, film2) -> film2.getUsersIdsLikes().size() - film1.getUsersIdsLikes().size())
                 .limit(count)
                 .collect(Collectors.toList());
     }

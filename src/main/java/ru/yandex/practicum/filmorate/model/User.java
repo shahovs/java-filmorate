@@ -16,13 +16,13 @@ import java.util.Set;
 public class User {
 
     @EqualsAndHashCode.Exclude
-    Long id;
+    private Long id;
 
-    String login;
-    String name;
-    String email;
-    LocalDate birthday;
+    private String login;
+    private String name;
+    private String email;
+    private LocalDate birthday;
 
     @JsonIgnore
-    Set<Long> friendsIds = new HashSet<>();
+    private final Set<Long> friendsIds = new HashSet<>();
 }
