@@ -49,8 +49,7 @@ public class UserService {
         User friend = userStorage.getUser(friendId);
         if (user != null && friend != null) {
             userStorage.addFriend(user, friend);
-        }
-        else {
+        } else {
             throw new UserIsNotExistException("One or two users do not exist");
         }
     }
@@ -60,8 +59,7 @@ public class UserService {
         User friend = userStorage.getUser(friendId);
         if (user != null && friend != null) {
             userStorage.deleteFriend(user, friend);
-        }
-        else {
+        } else {
             throw new UserIsNotExistException("One or two users do not exist");
         }
     }
@@ -70,8 +68,7 @@ public class UserService {
         User user = userStorage.getUser(userId);
         if (user != null) {
             return userStorage.getAllFriends(user);
-        }
-        else {
+        } else {
             throw new UserIsNotExistException("This user does not exists");
         }
     }

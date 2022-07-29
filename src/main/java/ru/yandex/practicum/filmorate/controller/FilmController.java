@@ -23,6 +23,7 @@ public class FilmController {
         log.info("Получен запрос к эндпоинту: GET /films/{}", filmId);
         return filmService.getFilm(filmId);
     }
+
     @GetMapping
     public Collection<Film> getAllFilms() {
         log.info("Получен запрос к эндпоинту: GET /films");
