@@ -1,40 +1,46 @@
 package ru.yandex.practicum.filmorate.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.filmorate.exception.*;
 import ru.yandex.practicum.filmorate.model.User;
+import ru.yandex.practicum.filmorate.service.UserService;
 
 import java.time.LocalDate;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 @RestController
 @RequestMapping("/users")
 @Slf4j
 public class UserController {
-    // оставил константу EMPTY_STRING здесь, т.к. она используется в валидации и в методе createUser()
-    private final static String EMPTY_STRING = "";
-    private static Map<Long, User> users = new HashMap<>();
-    private static long id = 0;
+
+    @Autowired
+    private UserService userService;
+
+    @GetMapping("/{userId}")
+    public User getUser(@PathVariable Long userId) {
+        log.info("Получен запрос к эндпоинту: GET /users/{}", userId);
+        return userService.getUser(userId);
+    }
+
+    @GetMapping
+    public Collection<User> getAllUsers() {
+        log.info("Получен запрос к эндпоинту: GET /users/");
+        return userService.getAllUsers();
+    }
 
     @PostMapping
     public User createUser(@RequestBody User user) {
         log.info("Получен запрос к эндпоинту: POST /users, Создан объект из тела запроса:'{}'", user);
         validateUser(user);
-        if (EMPTY_STRING.equals(user.getName())) {
-            user.setName(user.getLogin());
-        }
-        if (users.containsValue(user)) {
-            throw new UserAlreadyExistException("This user is already exist");
-        }
-        user.setId(++id);
-        users.put(user.getId(), user);
-        return user;
+        User createdUser = userService.createUser(user);
+        return createdUser;
     }
 
     void validateUser(User user) {
+        final String EMPTY_STRING = "";
         String email = user.getEmail();
         if (EMPTY_STRING.equals(email) || !email.contains("@")) {
             log.warn("Исключение. Email is wrong. Объект из тела запроса:'{}'", user);
@@ -55,20 +61,34 @@ public class UserController {
     public User updateUser(@RequestBody User user) {
         log.info("Получен запрос к эндпоинту: PUT /users, Создан объект из тела запроса:'{}'", user);
         validateUser(user);
-        Long id = user.getId();
-        if (id == null) {
-            throw new UserIsNotCorrectException("User's id is null");
-        }
-        if (!users.containsKey(id)) {
-            throw new UserIsNotExistException("This user is not exist");
-        }
-        users.put(id, user);
-        return user;
+        User updatedUser = userService.updateUser(user);
+        return updatedUser;
     }
 
-    @GetMapping
-    public Collection<User> getAllUsers() {
-        return users.values();
+    @PutMapping("/{id}/friends/{friendId}")
+    public void addFriend(@PathVariable("id") Long userId, @PathVariable Long friendId) {
+        log.info("Получен запрос к эндпоинту: PUT /users/{}/friends/{}", userId, friendId);
+        userService.addFriend(userId, friendId);
+    }
+
+    @DeleteMapping("/{id}/friends/{friendId}")
+    public void deleteFriend(@PathVariable("id") Long userId, @PathVariable Long friendId) {
+        log.info("Получен запрос к эндпоинту: DELETE /users/{}/friends/{}", userId, friendId);
+        userService.deleteFriend(userId, friendId);
+    }
+
+    @GetMapping("/{id}/friends")
+    public Collection<User> getAllFriends(@PathVariable("id") Long userId) {
+        log.info("Получен запрос к эндпоинту: GET /users/{}/friends", userId);
+        return userService.getAllFriends(userId);
+    }
+
+    @GetMapping("/{id}/friends/common/{otherId}")
+    public List<User> getCommonFriends(
+            @PathVariable("id") Long firstUserId,
+            @PathVariable("otherId") Long secondUserId) {
+        log.info("Получен запрос к эндпоинту: GET /users/{}/friends/common/{}", firstUserId, secondUserId);
+        return userService.getCommonFriends(firstUserId, secondUserId);
     }
 
 }

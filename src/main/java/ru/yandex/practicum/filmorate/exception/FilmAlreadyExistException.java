@@ -5,4 +5,3 @@ public class FilmAlreadyExistException extends RuntimeException {
         super(message);
     }
 }
-

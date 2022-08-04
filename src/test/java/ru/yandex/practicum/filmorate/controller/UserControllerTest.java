@@ -9,8 +9,8 @@ import java.time.LocalDate;
 import static org.junit.jupiter.api.Assertions.*;
 
 class UserControllerTest {
-    UserController userController;
-    User user;
+    private UserController userController;
+    private User user;
 
     @BeforeEach
     void init() {

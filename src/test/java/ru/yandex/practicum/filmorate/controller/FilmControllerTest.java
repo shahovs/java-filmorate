@@ -9,8 +9,8 @@ import java.time.LocalDate;
 import static org.junit.jupiter.api.Assertions.*;
 
 class FilmControllerTest {
-    FilmController filmController;
-    Film film;
+    private FilmController filmController;
+    private Film film;
 
     @BeforeEach
     void init() {
