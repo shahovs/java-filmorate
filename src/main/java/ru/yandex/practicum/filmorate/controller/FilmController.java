@@ -17,7 +17,7 @@ import java.util.List;
 public class FilmController {
 
     @Autowired
-    FilmService filmService;
+    private FilmService filmService;
 
     @GetMapping("/{filmId}")
     public Film getFilm(@PathVariable Long filmId) {
