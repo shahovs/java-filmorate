@@ -16,6 +16,7 @@ CREATE TABLE IF NOT EXISTS films(
     description VARCHAR(80),
     duration INT,
     mpa_id INT NOT NULL,
+    likes_count INT DEFAULT 0,
     FOREIGN KEY (mpa_id) REFERENCES mpa (mpa_id),
     CONSTRAINT positive_duration CHECK (duration > 0)
     );

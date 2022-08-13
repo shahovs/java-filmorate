@@ -183,12 +183,17 @@ public class FilmDbStorage implements FilmStorage {
     public void likeFilm(Film film, User user) {
         String sqlQuery = "insert into LIKES (USER_ID, FILM_ID) values (?, ?)";
         jdbcTemplate.update(sqlQuery, film.getId(), user.getId());
+        sqlQuery = "update FILMS set likes_count = likes_count + 1 where FILM_ID = ?";
+        jdbcTemplate.update(sqlQuery, film.getId());
+
     }
 
     @Override
     public void deleteLike(Film film, User user) {
         String sqlQuery = "delete from LIKES where FILM_ID = ? and USER_ID = ?";
         jdbcTemplate.update(sqlQuery, film.getId(), user.getId());
+        sqlQuery = "update FILMS set likes_count = likes_count - 1 where FILM_ID = ?";
+        jdbcTemplate.update(sqlQuery, film.getId());
     }
 
     @Override
@@ -197,15 +202,20 @@ public class FilmDbStorage implements FilmStorage {
                 "select FILMS.FILM_ID, FILM_NAME, RELEASE_DATE, DESCRIPTION, DURATION, FILMS.MPA_ID, MPA_NAME " +
                 "from FILMS " +
                 "join MPA on FILMS.MPA_ID = MPA.MPA_ID " +
-                "left join LIKES on FILMS.FILM_ID = LIKES.FILM_ID " +
-                "group by FILMS.FILM_ID " +
-                "order by COUNT(FILMS.FILM_ID) desc " +
+                "order by likes_count desc " +
                 "limit ?";
+//                "select FILMS.FILM_ID, FILM_NAME, RELEASE_DATE, DESCRIPTION, DURATION, FILMS.MPA_ID, MPA_NAME " +
+//                "from FILMS " +
+//                "join MPA on FILMS.MPA_ID = MPA.MPA_ID " +
+//                "left join LIKES on FILMS.FILM_ID = LIKES.FILM_ID " +
+//                "group by FILMS.FILM_ID " +
+//                "order by COUNT(FILMS.FILM_ID) desc " +
+//                "limit ?";
         List<Film> films = jdbcTemplate.query(sqlQuery, FilmDbStorage::mapRawToFilm, count);
         for (Film film : films) {
             setFilmGenres(film);
         }
-        System.out.println("\n\n\n\n\n777 List<Film> films = " + films+ "\n\n\n\n\n");
+//        System.out.println("\n\n\n\n\n777 List<Film> films = " + films+ "\n\n\n\n\n");
 
         return films;
     }
