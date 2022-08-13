@@ -1,8 +1,6 @@
 package ru.yandex.practicum.filmorate.service;
 
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import ru.yandex.practicum.filmorate.exception.UserIsNotExistException;
 import ru.yandex.practicum.filmorate.model.User;
@@ -29,9 +27,9 @@ public class UserService {
         return userStorage.getAllUsers();
     }
 
-    public User createUser(User user) {
+    public User saveUser(User user) {
         checkUserName(user);
-        return userStorage.createUser(user);
+        return userStorage.saveUser(user);
     }
 
     public User updateUser(User user) {

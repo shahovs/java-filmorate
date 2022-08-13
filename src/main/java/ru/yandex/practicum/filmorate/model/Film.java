@@ -8,8 +8,8 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
-@EqualsAndHashCode
-@NoArgsConstructor
+@EqualsAndHashCode//(of = "id")
+//@NoArgsConstructor
 @AllArgsConstructor
 public class Film {
 
@@ -20,8 +20,7 @@ public class Film {
     private LocalDate releaseDate;
     private String description;
     private int duration;
-    private int rate;
-    private MPA mpa;
+    private Mpa mpa;
     private List<Genre> genres;
 
 //    @JsonIgnore

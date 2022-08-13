@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.filmorate.exception.FilmIsNotCorrectException;
 import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.model.Genre;
-import ru.yandex.practicum.filmorate.model.MPA;
+import ru.yandex.practicum.filmorate.model.Mpa;
 import ru.yandex.practicum.filmorate.service.FilmService;
 
 import java.time.LocalDate;
@@ -33,29 +33,6 @@ public class FilmController {
         return filmService.getAllFilms();
     }
 
-    @GetMapping("/mpa")
-    public List<MPA> getAllMpa() {
-        log.info("Получен запрос к эндпоинту: GET /films/mpa");
-        return filmService.getAllMpa();
-    }
-
-    @GetMapping("/genres")
-    public List<Genre> getAllGenres() {
-        log.info("Получен запрос к эндпоинту: GET /films/genres");
-        return filmService.getAllGenres();
-    }
-
-    @GetMapping("genres/{filmId}")
-    public List<Genre> getGenres(@PathVariable long filmId) {
-        log.info("Получен запрос к эндпоинту: GET /films/genres/{}", filmId);
-        return filmService.getGenres(filmId);
-    }
-
-    @GetMapping("/mpa/{filmId}")
-    public MPA getMpa(@PathVariable long filmId) {
-        log.info("Получен запрос к эндпоинту: GET /films/mpa/{}", filmId);
-        return filmService.getMpa(filmId);
-    }
 
     @PostMapping
     public Film addFilm(@RequestBody Film film) {
@@ -88,6 +65,31 @@ public class FilmController {
         log.info("Получен запрос к эндпоинту: GET /films/popular");
         return filmService.getMostPopularFilms(count);
     }
+
+    @GetMapping("/mpa/{filmId}")
+    public Mpa getMpa(@PathVariable long filmId) {
+        log.info("Получен запрос к эндпоинту: GET /films/mpa/{}", filmId);
+        return filmService.getMpa(filmId);
+    }
+
+    @GetMapping("/mpa")
+    public List<Mpa> getAllMpa() {
+        log.info("Получен запрос к эндпоинту: GET /films/mpa");
+        return filmService.getAllMpa();
+    }
+
+    @GetMapping("/genres")
+    public List<Genre> getAllGenres() {
+        log.info("Получен запрос к эндпоинту: GET /films/genres");
+        return filmService.getAllGenres();
+    }
+
+    @GetMapping("genres/{filmId}")
+    public List<Genre> getGenres(@PathVariable long filmId) {
+        log.info("Получен запрос к эндпоинту: GET /films/genres/{}", filmId);
+        return filmService.getGenres(filmId);
+    }
+
 
     void validateFilm(Film film) {
         final String EMPTY_STRING = "";

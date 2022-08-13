@@ -10,7 +10,7 @@ public interface UserStorage {
 
     Collection<User> getAllUsers();
 
-    User createUser(User user);
+    User saveUser(User user);
 
     User updateUser(User user);
 

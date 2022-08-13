@@ -32,10 +32,10 @@ public class UserController {
     }
 
     @PostMapping
-    public User createUser(@RequestBody User user) {
+    public User saveUser(@RequestBody User user) {
         log.info("Получен запрос к эндпоинту: POST /users, Создан объект из тела запроса:'{}'", user);
         validateUser(user);
-        return userService.createUser(user);
+        return userService.saveUser(user);
     }
 
     @PutMapping

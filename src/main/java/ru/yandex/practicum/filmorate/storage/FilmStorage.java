@@ -2,7 +2,7 @@ package ru.yandex.practicum.filmorate.storage;
 
 import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.model.Genre;
-import ru.yandex.practicum.filmorate.model.MPA;
+import ru.yandex.practicum.filmorate.model.Mpa;
 import ru.yandex.practicum.filmorate.model.User;
 
 import java.util.Collection;
@@ -24,9 +24,9 @@ public interface FilmStorage {
 
     List<Film> getMostPopularFilms(int count);
 
-    MPA getMpa(long filmId);
+    Mpa getMpa(long filmId);
 
-    List<MPA> getAllMpa();
+    List<Mpa> getAllMpa();
 
     List<Genre> getGenres(long filmId);
 
