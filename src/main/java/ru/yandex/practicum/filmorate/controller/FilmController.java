@@ -63,30 +63,30 @@ public class FilmController {
         log.info("Получен запрос к эндпоинту: GET /films/popular, count = {}", count);
         return filmService.getMostPopularFilms(count);
     }
-
-    @GetMapping("/mpa/{mpaId}")
-    public String getMpa(@PathVariable int mpaId) {
-        log.info("Получен запрос к эндпоинту: GET /films/mpa/{}", mpaId);
-        return filmService.getMpa(mpaId);
-    }
-
-    @GetMapping("/mpa")
-    public List<String> getAllMpa() {
-        log.info("Получен запрос к эндпоинту: GET /films/mpa");
-        return filmService.getAllMpa();
-    }
-
-    @GetMapping("genres/{genreId}")
-    public List<String> getGenresById(@PathVariable int genreId) {
-        log.info("Получен запрос к эндпоинту: GET /films/genres/{}", genreId);
-        return filmService.getGenresById(genreId);
-    }
-
-    @GetMapping("/genres")
-    public List<String> getAllGenres() {
-        log.info("Получен запрос к эндпоинту: GET /films/genres");
-        return filmService.getAllGenres();
-    }
+//
+//    @GetMapping("/mpa/{mpaId}")
+//    public String getMpa(@PathVariable int mpaId) {
+//        log.info("Получен запрос к эндпоинту: GET /films/mpa/{}", mpaId);
+//        return filmService.getMpa(mpaId);
+//    }
+//
+//    @GetMapping("/mpa")
+//    public List<String> getAllMpa() {
+//        log.info("Получен запрос к эндпоинту: GET /films/mpa");
+//        return filmService.getAllMpa();
+//    }
+//
+//    @GetMapping("genres/{genreId}")
+//    public List<String> getGenresById(@PathVariable int genreId) {
+//        log.info("Получен запрос к эндпоинту: GET /films/genres/{}", genreId);
+//        return filmService.getGenresById(genreId);
+//    }
+//
+//    @GetMapping("/genres")
+//    public List<String> getAllGenres() {
+//        log.info("Получен запрос к эндпоинту: GET /films/genres");
+//        return filmService.getAllGenres();
+//    }
 
     void validateFilm(Film film) {
         final String EMPTY_STRING = "";

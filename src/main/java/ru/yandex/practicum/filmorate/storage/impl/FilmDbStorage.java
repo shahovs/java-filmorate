@@ -221,10 +221,13 @@ public class FilmDbStorage implements FilmStorage {
     }
 
     @Override
-    public String getMpa(int mpaId) {
-        String sqlQuery = "select MPA_NAME from MPA where MPA_ID = ?";
-        List<String> mpa = jdbcTemplate.query(sqlQuery,
-                (ResultSet rs, int rowNum) -> rs.getString("MPA_NAME"), mpaId);
+    public Mpa getMpa(int mpaId) {
+        String sqlQuery = "select MPA_ID, MPA_NAME from MPA where MPA_ID = ?";
+        List<Mpa> mpa = jdbcTemplate.query(sqlQuery, (ResultSet resultSet, int rowNum) ->
+                new Mpa(
+                        resultSet.getInt("MPA_ID"),
+                        resultSet.getString("MPA_NAME")),
+                mpaId);
         if (mpa.size() == 0) {
             throw new ObjectNotFoundException("Mpa c id " + mpaId + " не найден");
         }
@@ -232,31 +235,37 @@ public class FilmDbStorage implements FilmStorage {
     }
 
     @Override
-    public List<String> getAllMpa() {
-        String sqlQuery = "select MPA_NAME from MPA";
-        return jdbcTemplate.query(sqlQuery,
-                (ResultSet resultSet, int rowNum) -> resultSet.getString("MPA_NAME"));
+    public List<Mpa> getAllMpa() {
+        String sqlQuery = "select MPA_ID, MPA_NAME from MPA";
+        return jdbcTemplate.query(sqlQuery, (ResultSet resultSet, int rowNum) ->
+                new Mpa(
+                        resultSet.getInt("MPA_ID"),
+                        resultSet.getString("MPA_NAME"))
+        );
     }
 
     @Override
-    public List<String> getGenresById(int genreId) {
-        String sqlQuery = "select GENRE_NAME from GENRES where GENRE_ID = ?";
-//        String sqlQuery = "" +
-//                "select GENRE_NAME " +
-//                "from FILMS " +
-//                "join FILM_GENRES on FILMS.FILM_ID = FILM_GENRES.FILM_ID " +
-//                "join GENRES on FILM_GENRES.GENRE_ID = GENRES.GENRE_ID " +
-//                "where FILMS.FILM_ID = ?";
-        return jdbcTemplate.query(sqlQuery,
-                (ResultSet resultSet, int rowNub) -> resultSet.getString("GENRE_NAME"), genreId);
+    public Genre getGenre(int genreId) {
+        String sqlQuery = "select GENRE_ID, GENRE_NAME from GENRES where GENRE_ID = ?";
+        List<Genre> genre = jdbcTemplate.query(sqlQuery, (ResultSet resultSet, int rowNub) ->
+                new Genre(
+                        resultSet.getInt("GENRE_ID"),
+                        resultSet.getString("GENRE_NAME")),
+                genreId);
+        if (genre.size() == 0) {
+            throw new ObjectNotFoundException("Жанр c id " + genreId + " не найден");
+        }
+        return genre.get(0);
     }
 
     @Override
-    public List<String> getAllGenres() {
-        String sqlQuery = "select GENRE_NAME from GENRES";
-        return jdbcTemplate.query(sqlQuery,
-                (ResultSet resultSet, int rowNum) -> resultSet.getString("GENRE_NAME"));
-
+    public List<Genre> getAllGenres() {
+        String sqlQuery = "select GENRE_ID, GENRE_NAME from GENRES";
+        return jdbcTemplate.query(sqlQuery, (ResultSet resultSet, int rowNum) ->
+                new Genre(
+                        resultSet.getInt("GENRE_ID"),
+                        resultSet.getString("GENRE_NAME"))
+        );
     }
 
 }
