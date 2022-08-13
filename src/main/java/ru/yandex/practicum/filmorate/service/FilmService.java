@@ -1,10 +1,13 @@
 package ru.yandex.practicum.filmorate.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import ru.yandex.practicum.filmorate.exception.FilmIsNotExistException;
 import ru.yandex.practicum.filmorate.exception.UserIsNotExistException;
 import ru.yandex.practicum.filmorate.model.Film;
+import ru.yandex.practicum.filmorate.model.Genre;
+import ru.yandex.practicum.filmorate.model.MPA;
 import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.storage.FilmStorage;
 import ru.yandex.practicum.filmorate.storage.UserStorage;
@@ -13,13 +16,13 @@ import java.util.Collection;
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class FilmService {
 
-    @Autowired
-    private FilmStorage filmStorage;
-
-    @Autowired
-    private UserStorage userStorage;
+    //@Qualifier("filmDbStorage")
+    private final FilmStorage filmStorage;
+    //@Qualifier("userDbStorage")
+    private final UserStorage userStorage;
 
     public Film getFilm(Long filmId) {
         Film film = filmStorage.getFilm(filmId);
@@ -70,5 +73,21 @@ public class FilmService {
             throw new IllegalArgumentException("Ошибка. Количество фильмов не может быть меньше или равно 0");
         }
         return filmStorage.getMostPopularFilms(count);
+    }
+
+    public List<MPA> getAllMpa() {
+        return filmStorage.getAllMpa();
+    }
+
+    public MPA getMpa(long filmId) {
+        return filmStorage.getMpa(filmId);
+    }
+
+    public List<Genre> getAllGenres() {
+        return filmStorage.getAllGenres();
+    }
+
+    public List<Genre> getGenres(long filmId) {
+        return filmStorage.getGenres(filmId);
     }
 }

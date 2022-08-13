@@ -12,11 +12,12 @@ class FilmControllerTest {
     private FilmController filmController;
     private Film film;
 
-    @BeforeEach
-    void init() {
-        filmController = new FilmController();
-        film = new Film(0L, "name", "description", LocalDate.now(), 1);
-    }
+//    @BeforeEach
+//    void init() {
+//        filmController = new FilmController();
+//        film = new Film(0L, "name", "description", LocalDate.now(), 1,
+//                null, null, 0);
+//    }
 
     @Test
     void emptyNameTest() {

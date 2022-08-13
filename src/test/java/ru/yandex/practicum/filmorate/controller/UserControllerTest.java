@@ -12,11 +12,11 @@ class UserControllerTest {
     private UserController userController;
     private User user;
 
-    @BeforeEach
-    void init() {
-        userController = new UserController();
-        user = new User(0L, "login", "name", "email@email.com", LocalDate.now());
-    }
+//    @BeforeEach
+//    void init() {
+//        userController = new UserController();
+//        user = new User(0L, "login", "name", "email@email.com", LocalDate.now());
+//    }
 
     @Test
     void emptyEmailTest() {

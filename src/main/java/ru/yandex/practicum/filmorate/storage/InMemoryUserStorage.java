@@ -1,3 +1,4 @@
+/*
 package ru.yandex.practicum.filmorate.storage;
 
 import org.springframework.stereotype.Component;
@@ -51,35 +52,38 @@ public class InMemoryUserStorage implements UserStorage {
 
     @Override
     public void addFriend(User user, User friend) {
-        user.getFriendsIds().add(friend.getId());
-        friend.getFriendsIds().add(user.getId());
+//        user.getFriendsIds().add(friend.getId());
+//        friend.getFriendsIds().add(user.getId());
     }
 
     @Override
     public void deleteFriend(User user, User friend) {
-        user.getFriendsIds().remove(friend.getId());
-        friend.getFriendsIds().remove(user.getId());
+//        user.getFriendsIds().remove(friend.getId());
+//        friend.getFriendsIds().remove(user.getId());
     }
 
     @Override
     public List<User> getAllFriends(User user) {
-        return user.getFriendsIds().stream()
-                .map(users::get)
-                .filter(Objects::nonNull)
-                .collect(Collectors.toList());
+//        return user.getFriendsIds().stream()
+//                .map(users::get)
+//                .filter(Objects::nonNull)
+//                .collect(Collectors.toList());
+        return null;
     }
 
     @Override
     public List<User> getCommonFriends(User firstUser, User secondUser) {
         Set<Long> commonFriendsIds = new HashSet<>();
-        commonFriendsIds.addAll(firstUser.getFriendsIds());
-        commonFriendsIds.addAll(secondUser.getFriendsIds());
-        commonFriendsIds.remove(firstUser.getId());
-        commonFriendsIds.remove(secondUser.getId());
-        return commonFriendsIds.stream()
-                .map(users::get)
-                .filter(Objects::nonNull)
-                .collect(Collectors.toList());
+//        commonFriendsIds.addAll(firstUser.getFriendsIds());
+//        commonFriendsIds.addAll(secondUser.getFriendsIds());
+//        commonFriendsIds.remove(firstUser.getId());
+//        commonFriendsIds.remove(secondUser.getId());
+//        return commonFriendsIds.stream()
+//                .map(users::get)
+//                .filter(Objects::nonNull)
+//                .collect(Collectors.toList());
+        return null;
     }
 
 }
+*/

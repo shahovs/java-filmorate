@@ -1,3 +1,4 @@
+/*
 package ru.yandex.practicum.filmorate.storage;
 
 import org.springframework.stereotype.Component;
@@ -5,6 +6,8 @@ import ru.yandex.practicum.filmorate.exception.FilmAlreadyExistException;
 import ru.yandex.practicum.filmorate.exception.FilmIsNotCorrectException;
 import ru.yandex.practicum.filmorate.exception.FilmIsNotExistException;
 import ru.yandex.practicum.filmorate.model.Film;
+import ru.yandex.practicum.filmorate.model.Genre;
+import ru.yandex.practicum.filmorate.model.MPA;
 import ru.yandex.practicum.filmorate.model.User;
 
 import java.util.*;
@@ -51,20 +54,42 @@ public class InMemoryFilmStorage implements FilmStorage {
 
     @Override
     public void likeFilm(Film film, User user) {
-        film.getUsersIdsLikes().add(user.getId());
+//        film.getUsersIdsLikes().add(user.getId());
     }
 
     @Override
     public void deleteLike(Film film, User user) {
-        film.getUsersIdsLikes().remove(user.getId());
+//        film.getUsersIdsLikes().remove(user.getId());
     }
 
     @Override
     public List<Film> getMostPopularFilms(int count) {
-        return films.values().stream()
-                .sorted((film1, film2) -> film2.getUsersIdsLikes().size() - film1.getUsersIdsLikes().size())
-                .limit(count)
-                .collect(Collectors.toList());
+//        return films.values().stream()
+//                .sorted((film1, film2) -> film2.getUsersIdsLikes().size() - film1.getUsersIdsLikes().size())
+//                .limit(count)
+//                .collect(Collectors.toList());
+        return null;
+    }
+
+    @Override
+    public List<MPA> getAllMpa() {
+        return List.of(MPA.values());
+    }
+
+    @Override
+    public MPA getMpa(long filmId) {
+        return films.get(filmId).getMpa();
+    }
+
+    @Override
+    public List<Genre> getAllGenres() {
+        return List.of(Genre.values());
+    }
+
+    @Override
+    public List<Genre> getGenres(long filmId) {
+        return films.get(filmId).getGenres();
     }
 
 }
+*/
