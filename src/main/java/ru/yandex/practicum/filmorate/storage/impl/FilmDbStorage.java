@@ -1,14 +1,11 @@
 package ru.yandex.practicum.filmorate.storage.impl;
 
-import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import ru.yandex.practicum.filmorate.exception.FilmIsNotExistException;
-import ru.yandex.practicum.filmorate.exception.UserIsNotExistException;
 import ru.yandex.practicum.filmorate.model.*;
 import ru.yandex.practicum.filmorate.storage.FilmStorage;
 
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
@@ -26,7 +23,7 @@ public class FilmDbStorage implements FilmStorage {
 
     @Override
     public Film getFilm(Long filmId) {
-        List<Genre> genres = getGenres(filmId);
+//        List<Genre> genres = getGenresById(filmId);
         String sqlQuery = "" +
                 "select FILMS.FILM_ID, FILM_NAME, RELEASE_DATE, DESCRIPTION, DURATION, FILMS.MPA_ID, MPA_NAME " +
                 "from FILMS " +
@@ -42,20 +39,6 @@ public class FilmDbStorage implements FilmStorage {
         return film;
     }
 
-    @Override
-    public List<Genre> getGenres(long filmId) {
-        String sqlQuery = "" +
-                "select GENRE_ID, GENRE_NAME " +
-                "from FILMS " +
-                "join FILM_GENRES on FILMS.FILM_ID = FILM_GENRES.FILM_ID " +
-                "join GENRES on FILM_GENRES.GENRE_ID = GENRES.GENRE_ID " +
-                "where FILMS.FILM_ID = ?";
-//        jdbcTemplate.query(sqlQuery, );
-
-
-
-        return null;
-    }
     private Film mapRawToFilm(ResultSet resultSet, int row) throws SQLException {
         return new Film(
                 resultSet.getLong("film_id"),
@@ -102,20 +85,37 @@ public class FilmDbStorage implements FilmStorage {
 
 
     @Override
-    public Mpa getMpa(long filmId) {
-        return null;
+    public String getMpa(int mpaId) {
+        String sqlQuery = "select MPA_NAME from MPA where MPA_ID = ?";
+        return jdbcTemplate.query(sqlQuery, (ResultSet rs) -> rs.getString("MPA_NAME"), mpaId);
     }
 
     @Override
-    public List<Mpa> getAllMpa() {
-        return null;
+    public List<String> getAllMpa() {
+        String sqlQuery = "select MPA_NAME from MPA";
+        return jdbcTemplate.query(sqlQuery,
+                (ResultSet resultSet, int rowNum) -> resultSet.getString("MPA_NAME"));
     }
 
-
+    @Override
+    public List<String> getGenresById(int genreId) {
+        String sqlQuery = "select GENRE_NAME from GENRES where GENRE_ID = ?";
+//        String sqlQuery = "" +
+//                "select GENRE_NAME " +
+//                "from FILMS " +
+//                "join FILM_GENRES on FILMS.FILM_ID = FILM_GENRES.FILM_ID " +
+//                "join GENRES on FILM_GENRES.GENRE_ID = GENRES.GENRE_ID " +
+//                "where FILMS.FILM_ID = ?";
+        return jdbcTemplate.query(sqlQuery,
+                (ResultSet resultSet, int rowNub) -> resultSet.getString("GENRE_NAME"), genreId);
+    }
 
     @Override
-    public List<Genre> getAllGenres() {
-        return null;
+    public List<String> getAllGenres() {
+        String sqlQuery = "select GENRE_NAME from GENRES";
+        return jdbcTemplate.query(sqlQuery,
+                (ResultSet resultSet, int rowNum) -> resultSet.getString("GENRE_NAME"));
+
     }
 
 }

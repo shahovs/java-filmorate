@@ -5,8 +5,6 @@ import org.springframework.stereotype.Service;
 import ru.yandex.practicum.filmorate.exception.FilmIsNotExistException;
 import ru.yandex.practicum.filmorate.exception.UserIsNotExistException;
 import ru.yandex.practicum.filmorate.model.Film;
-import ru.yandex.practicum.filmorate.model.Genre;
-import ru.yandex.practicum.filmorate.model.Mpa;
 import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.storage.FilmStorage;
 import ru.yandex.practicum.filmorate.storage.UserStorage;
@@ -74,19 +72,19 @@ public class FilmService {
         return filmStorage.getMostPopularFilms(count);
     }
 
-    public List<Mpa> getAllMpa() {
+    public List<String> getAllMpa() {
         return filmStorage.getAllMpa();
     }
 
-    public Mpa getMpa(long filmId) {
-        return filmStorage.getMpa(filmId);
+    public String getMpa(int mpaId) {
+        return filmStorage.getMpa(mpaId);
     }
 
-    public List<Genre> getAllGenres() {
+    public List<String> getAllGenres() {
         return filmStorage.getAllGenres();
     }
 
-    public List<Genre> getGenres(long filmId) {
-        return filmStorage.getGenres(filmId);
+    public List<String> getGenresById(int genreId) {
+        return filmStorage.getGenresById(genreId);
     }
 }
