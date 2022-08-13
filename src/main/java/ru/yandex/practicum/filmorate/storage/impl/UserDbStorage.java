@@ -33,7 +33,7 @@ public class UserDbStorage implements UserStorage {
                 "where USER_ID = ?";
         User user;
         try {
-            user = jdbcTemplate.queryForObject(sqlQuery, this::mapRowToUser, userId);
+            user = jdbcTemplate.queryForObject(sqlQuery, UserDbStorage::mapRowToUser, userId);
         }
         catch (Exception e) {
             throw new UserIsNotExistException("Ошибка. Пользователь с id " + userId + " не найден.");
@@ -41,7 +41,7 @@ public class UserDbStorage implements UserStorage {
         return user;
     }
 
-    private User mapRowToUser(ResultSet resultSet, int rowNum) throws SQLException {
+    static User mapRowToUser(ResultSet resultSet, int rowNum) throws SQLException {
         return new User(
                 resultSet.getLong("user_id"),
                 resultSet.getString("login"),
@@ -55,7 +55,7 @@ public class UserDbStorage implements UserStorage {
         String sqlQuery =
                 "select USER_ID, LOGIN, USER_NAME, EMAIL, BIRTHDAY " +
                 "from USERS";
-        return jdbcTemplate.query(sqlQuery, this::mapRowToUser);
+        return jdbcTemplate.query(sqlQuery, UserDbStorage::mapRowToUser);
     }
 
     @Override
@@ -80,7 +80,6 @@ public class UserDbStorage implements UserStorage {
         }, keyHolder);
 
         user.setId(Objects.requireNonNull(keyHolder.getKey()).longValue());
-//        user.setId(keyHolder.getKey().longValue());
         return user;
     }
 
@@ -94,10 +93,8 @@ public class UserDbStorage implements UserStorage {
                 user.getLogin(),
                 user.getName(),
                 user.getEmail(),
-                Date.valueOf(user.getBirthday()), //user.getBirthday(),
+                Date.valueOf(user.getBirthday()),
                 user.getId());
-        // The return value of the method is an int, which indicates how many records were affected by the operation.
-        System.out.println(successRecord);
         if (successRecord > 0) {
             return user;
         } else {
@@ -137,7 +134,7 @@ public class UserDbStorage implements UserStorage {
                 "from FRIENDSHIPS " +
                 "join USERS on FRIEND_ID = USERS.USER_ID " +
                 "where FRIENDSHIPS.USER_ID = ?";
-        return jdbcTemplate.query(sqlQuery, this::mapRowToUser, userId);
+        return jdbcTemplate.query(sqlQuery, UserDbStorage::mapRowToUser, userId);
     }
 
     @Override
@@ -150,7 +147,7 @@ public class UserDbStorage implements UserStorage {
                 "or FRIENDSHIPS.USER_ID = ?) " +
                 "and FRIEND_ID != ? " +
                 "and FRIEND_ID != ?";
-        return jdbcTemplate.query(sqlQuery, this::mapRowToUser, firstUserId, secondUserId, firstUserId, secondUserId);
+        return jdbcTemplate.query(sqlQuery, UserDbStorage::mapRowToUser, firstUserId, secondUserId, firstUserId, secondUserId);
 
 //        Set<Long> commonFriendsIds = new HashSet<>();
 //        commonFriendsIds.addAll(jdbcTemplate.query(sqlQuery,

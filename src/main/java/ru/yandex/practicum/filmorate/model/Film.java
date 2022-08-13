@@ -24,8 +24,7 @@ public class Film {
     private int duration;
     private Mpa mpa;
     private LinkedHashSet<Genre> genres;
-
-//    @JsonIgnore
+    //    @JsonIgnore
 //    private final Set<Long> usersIdsLikes = new HashSet<>();
 
 }

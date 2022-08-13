@@ -14,6 +14,13 @@ import ru.yandex.practicum.filmorate.model.ErrorResponse;
 public class ErrorHandler {
 
     @ExceptionHandler
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ErrorResponse handleObjectNotFoundException(final ObjectNotFoundException e) {
+        log.info("404 {}", e.getMessage());
+        return new ErrorResponse(e.getMessage());
+    }
+
+    @ExceptionHandler
     public ResponseEntity<String> handleIllegalArgumentException(final IllegalArgumentException e) {
         log.info("400 {}", e.getMessage());
         return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);

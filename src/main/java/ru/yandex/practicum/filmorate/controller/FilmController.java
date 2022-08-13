@@ -33,10 +33,10 @@ public class FilmController {
 
 
     @PostMapping
-    public Film addFilm(@RequestBody Film film) {
+    public Film saveFilm(@RequestBody Film film) {
         log.info("Получен запрос к эндпоинту: POST /films, Создан объект из тела запроса:'{}'", film);
         validateFilm(film);
-        return filmService.addFilm(film);
+        return filmService.saveFilm(film);
     }
 
     @PutMapping
@@ -60,7 +60,7 @@ public class FilmController {
 
     @GetMapping("/popular")
     public List<Film> getMostPopularFilms(@RequestParam(defaultValue = "10") int count) {
-        log.info("Получен запрос к эндпоинту: GET /films/popular");
+        log.info("Получен запрос к эндпоинту: GET /films/popular, count = {}", count);
         return filmService.getMostPopularFilms(count);
     }
 

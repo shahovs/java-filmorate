@@ -12,7 +12,7 @@ public interface FilmStorage {
 
     Collection<Film> getAllFilms();
 
-    Film addFilm(Film film);
+    Film saveFilm(Film film);
 
     Film updateFilm(Film film);
 
