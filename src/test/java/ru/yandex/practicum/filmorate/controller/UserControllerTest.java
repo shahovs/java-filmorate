@@ -10,9 +10,9 @@ import ru.yandex.practicum.filmorate.model.User;
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
+
 @SpringBootTest
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
-
 class UserControllerTest {
     private UserController userController;
     private User user;
@@ -45,6 +45,7 @@ class UserControllerTest {
         user.setLogin("login withSpace");
         assertThrows(RuntimeException.class, () -> userController.validateUser(user));
     }
+
     @Test
     void tooLateDateOfBirthTest() {
         LocalDate localDate = LocalDate.of(2030, 1, 1);

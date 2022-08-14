@@ -9,9 +9,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import ru.yandex.practicum.filmorate.model.User;
 
 import java.time.LocalDate;
+import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 @AutoConfigureTestDatabase
@@ -22,22 +23,21 @@ class UserDbStorageTest {
 
     @BeforeEach
     void init() {
-        User user = new User(0L, "login", "name", "email@email.com", LocalDate.now());
-        userDbStorage.saveUser(user);
     }
 
     @Test
     public void testFindUserById() {
+        User user = new User(0L, "login", "name", "email@email.com", LocalDate.now());
+        userDbStorage.saveUser(user);
+        User userFromDB = userDbStorage.getUser(1L);
 
-        User user = userDbStorage.getUser(1L);
-        assertEquals(1, user.getId());
-        assertEquals("login", user.getLogin());
+        assertEquals(1, userFromDB.getId());
+        assertEquals("name", userFromDB.getName());
+        assertThat(userFromDB).hasFieldOrPropertyWithValue("id", 1L);
 
+        List<User> users = userDbStorage.getAllUsers();
+        assertThat(users).hasSize(1);
 
-//        assertThat(userOptional)
-//                .isPresent()
-//                .hasValueSatisfying(user ->
-//                        assertThat(user).hasFieldOrPropertyWithValue("id", 1)
-//                );
     }
+
 }

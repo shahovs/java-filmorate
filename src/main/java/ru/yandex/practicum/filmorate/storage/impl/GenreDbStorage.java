@@ -19,9 +19,9 @@ public class GenreDbStorage {
     public Genre getGenre(int genreId) {
         String sqlQuery = "select GENRE_ID, GENRE_NAME from GENRES where GENRE_ID = ?";
         List<Genre> genre = jdbcTemplate.query(sqlQuery, (ResultSet resultSet, int rowNub) ->
-                new Genre(
-                        resultSet.getInt("GENRE_ID"),
-                        resultSet.getString("GENRE_NAME")),
+                        new Genre(
+                                resultSet.getInt("GENRE_ID"),
+                                resultSet.getString("GENRE_NAME")),
                 genreId);
         if (genre.size() == 0) {
             throw new ObjectNotFoundException("Жанр c id " + genreId + " не найден");

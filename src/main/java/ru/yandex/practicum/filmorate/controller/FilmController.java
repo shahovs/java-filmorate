@@ -8,7 +8,6 @@ import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.service.FilmService;
 
 import java.time.LocalDate;
-import java.util.Collection;
 import java.util.List;
 
 @RestController
@@ -26,11 +25,10 @@ public class FilmController {
     }
 
     @GetMapping
-    public Collection<Film> getAllFilms() {
+    public List<Film> getAllFilms() {
         log.info("Получен запрос к эндпоинту: GET /films");
         return filmService.getAllFilms();
     }
-
 
     @PostMapping
     public Film saveFilm(@RequestBody Film film) {

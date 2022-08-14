@@ -12,7 +12,7 @@ import ru.yandex.practicum.filmorate.storage.FilmStorage;
 
 import java.sql.*;
 import java.time.LocalDate;
-import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 
 @Component
@@ -52,7 +52,7 @@ public class FilmDbStorage implements FilmStorage {
     }
 
     @Override
-    public Collection<Film> getAllFilms() {
+    public List<Film> getAllFilms() {
         String sqlQuery = "" +
                 "select FILMS.FILM_ID, FILM_NAME, RELEASE_DATE, DESCRIPTION, DURATION, FILMS.MPA_ID, MPA_NAME " +
                 "from FILMS " +

@@ -30,16 +30,8 @@ class FilmDbStorageTest {
 
     @Test
     public void testFindFilmById() {
-
         Film film = filmDbStorage.getFilm(1L);
         assertEquals(1, film.getId());
         assertEquals("name", film.getName());
-
-
-//        assertThat(userOptional)
-//                .isPresent()
-//                .hasValueSatisfying(user ->
-//                        assertThat(user).hasFieldOrPropertyWithValue("id", 1)
-//                );
     }
 }

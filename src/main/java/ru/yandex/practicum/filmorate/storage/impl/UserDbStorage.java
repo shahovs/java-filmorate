@@ -11,7 +11,7 @@ import ru.yandex.practicum.filmorate.storage.UserStorage;
 
 import java.sql.*;
 import java.time.LocalDate;
-import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 
 @Component
@@ -28,13 +28,12 @@ public class UserDbStorage implements UserStorage {
     public User getUser(Long userId) {
         String sqlQuery =
                 "select USER_ID, LOGIN, USER_NAME, EMAIL, BIRTHDAY " +
-                "from USERS " +
-                "where USER_ID = ?";
+                        "from USERS " +
+                        "where USER_ID = ?";
         User user;
         try {
             user = jdbcTemplate.queryForObject(sqlQuery, UserDbStorage::mapRowToUser, userId);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new UserIsNotExistException("Ошибка. Пользователь с id " + userId + " не найден.");
         }
         return user;
@@ -50,10 +49,10 @@ public class UserDbStorage implements UserStorage {
     }
 
     @Override
-    public Collection<User> getAllUsers() {
+    public List<User> getAllUsers() {
         String sqlQuery =
                 "select USER_ID, LOGIN, USER_NAME, EMAIL, BIRTHDAY " +
-                "from USERS";
+                        "from USERS";
         return jdbcTemplate.query(sqlQuery, UserDbStorage::mapRowToUser);
     }
 
@@ -61,7 +60,7 @@ public class UserDbStorage implements UserStorage {
     public User saveUser(User user) {
         String sqlQuery =
                 "insert into USERS (LOGIN, USER_NAME, EMAIL, BIRTHDAY) " +
-                "values (?, ?, ?, ?)";
+                        "values (?, ?, ?, ?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
         jdbcTemplate.update(connection -> {
@@ -86,8 +85,8 @@ public class UserDbStorage implements UserStorage {
     public User updateUser(User user) {
         String sqlQuery =
                 "update USERS " +
-                "set LOGIN = ?, USER_NAME = ?, EMAIL = ?, BIRTHDAY = ?" +
-                "where USER_ID = ?";
+                        "set LOGIN = ?, USER_NAME = ?, EMAIL = ?, BIRTHDAY = ?" +
+                        "where USER_ID = ?";
         int successRecord = jdbcTemplate.update(sqlQuery,
                 user.getLogin(),
                 user.getName(),
@@ -101,53 +100,4 @@ public class UserDbStorage implements UserStorage {
         }
     }
 
-   /* @Override
-    public void addFriend(Long userId, Long friendId) {
-        String sqlQuery =
-                "merge into FRIENDSHIPS (user_id, friend_id) " + // можно insert into
-                "values (?, ?)";
-        try{
-            jdbcTemplate.update(sqlQuery, userId, friendId);
-        } catch(Exception e){
-            throw new UserIsNotExistException("Ошибка. Пользователь не найден.");
-        }
-    }
-
-    @Override
-    public void deleteFriend(Long userId, Long friendId) {
-        String sqlQuery =
-                "delete from FRIENDSHIPS " +
-                "where USER_ID = ? " +
-                "and FRIEND_ID = ?";
-        try{
-            jdbcTemplate.update(sqlQuery, userId, friendId);
-        } catch(Exception e){
-            throw new UserIsNotExistException("Ошибка. Пользователь не найден.");
-        }
-    }
-
-    @Override
-    public List<User> getAllFriends(Long userId) {
-        String sqlQuery =
-                "select USERS.USER_ID, LOGIN, USER_NAME, EMAIL, BIRTHDAY " +
-                "from FRIENDSHIPS " +
-                "join USERS on FRIEND_ID = USERS.USER_ID " +
-                "where FRIENDSHIPS.USER_ID = ?";
-        return jdbcTemplate.query(sqlQuery, UserDbStorage::mapRowToUser, userId);
-    }
-
-    @Override
-    public List<User> getCommonFriends(Long firstUserId, Long secondUserId) {
-        String sqlQuery =
-                "select distinct USERS.USER_ID, LOGIN, USER_NAME, EMAIL, BIRTHDAY " +
-                "from FRIENDSHIPS " +
-                "join USERS on FRIEND_ID = USERS.USER_ID " +
-                "where (FRIENDSHIPS.USER_ID = ? " +
-                "or FRIENDSHIPS.USER_ID = ?) " +
-                "and FRIEND_ID != ? " +
-                "and FRIEND_ID != ?";
-        return jdbcTemplate.query(sqlQuery, UserDbStorage::mapRowToUser,
-                firstUserId, secondUserId, firstUserId, secondUserId);
-    }
-*/
 }

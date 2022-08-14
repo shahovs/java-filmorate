@@ -15,7 +15,6 @@ import ru.yandex.practicum.filmorate.storage.impl.GenreDbStorage;
 import ru.yandex.practicum.filmorate.storage.impl.LikeDbStorage;
 import ru.yandex.practicum.filmorate.storage.impl.MpaDbStorage;
 
-import java.util.Collection;
 import java.util.List;
 
 @Service
@@ -38,8 +37,8 @@ public class FilmService {
         return film;
     }
 
-    public Collection<Film> getAllFilms() {
-        Collection<Film> films = filmStorage.getAllFilms();
+    public List<Film> getAllFilms() {
+        List<Film> films = filmStorage.getAllFilms();
         for (Film film : films) {
             filmGenreDbStorage.setFilmGenres(film);
         }

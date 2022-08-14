@@ -25,7 +25,7 @@ public class UserService {
         return user;
     }
 
-    public Collection<User> getAllUsers() {
+    public List<User> getAllUsers() {
         return userStorage.getAllUsers();
     }
 

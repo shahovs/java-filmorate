@@ -21,10 +21,10 @@ public class FriendshipDbStorage {
     public void addFriend(Long userId, Long friendId) {
         String sqlQuery =
                 "merge into FRIENDSHIPS (user_id, friend_id) " + // можно insert into
-                "values (?, ?)";
-        try{
+                        "values (?, ?)";
+        try {
             jdbcTemplate.update(sqlQuery, userId, friendId);
-        } catch(Exception e){
+        } catch (Exception e) {
             throw new UserIsNotExistException("Ошибка. Пользователь не найден.");
         }
     }
@@ -32,11 +32,11 @@ public class FriendshipDbStorage {
     public void deleteFriend(Long userId, Long friendId) {
         String sqlQuery =
                 "delete from FRIENDSHIPS " +
-                "where USER_ID = ? " +
-                "and FRIEND_ID = ?";
-        try{
+                        "where USER_ID = ? " +
+                        "and FRIEND_ID = ?";
+        try {
             jdbcTemplate.update(sqlQuery, userId, friendId);
-        } catch(Exception e){
+        } catch (Exception e) {
             throw new UserIsNotExistException("Ошибка. Пользователь не найден.");
         }
     }
@@ -44,21 +44,21 @@ public class FriendshipDbStorage {
     public List<User> getAllFriends(Long userId) {
         String sqlQuery =
                 "select USERS.USER_ID, LOGIN, USER_NAME, EMAIL, BIRTHDAY " +
-                "from FRIENDSHIPS " +
-                "join USERS on FRIEND_ID = USERS.USER_ID " +
-                "where FRIENDSHIPS.USER_ID = ?";
+                        "from FRIENDSHIPS " +
+                        "join USERS on FRIEND_ID = USERS.USER_ID " +
+                        "where FRIENDSHIPS.USER_ID = ?";
         return jdbcTemplate.query(sqlQuery, UserDbStorage::mapRowToUser, userId);
     }
 
     public List<User> getCommonFriends(Long firstUserId, Long secondUserId) {
         String sqlQuery =
                 "select distinct USERS.USER_ID, LOGIN, USER_NAME, EMAIL, BIRTHDAY " +
-                "from FRIENDSHIPS " +
-                "join USERS on FRIEND_ID = USERS.USER_ID " +
-                "where (FRIENDSHIPS.USER_ID = ? " +
-                "or FRIENDSHIPS.USER_ID = ?) " +
-                "and FRIEND_ID != ? " +
-                "and FRIEND_ID != ?";
+                        "from FRIENDSHIPS " +
+                        "join USERS on FRIEND_ID = USERS.USER_ID " +
+                        "where (FRIENDSHIPS.USER_ID = ? " +
+                        "or FRIENDSHIPS.USER_ID = ?) " +
+                        "and FRIEND_ID != ? " +
+                        "and FRIEND_ID != ?";
         return jdbcTemplate.query(sqlQuery, UserDbStorage::mapRowToUser,
                 firstUserId, secondUserId, firstUserId, secondUserId);
     }
