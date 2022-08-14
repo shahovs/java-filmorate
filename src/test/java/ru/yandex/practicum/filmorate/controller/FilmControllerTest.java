@@ -2,7 +2,11 @@ package ru.yandex.practicum.filmorate.controller;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.jdbc.core.JdbcTemplate;
 import ru.yandex.practicum.filmorate.model.Film;
+import ru.yandex.practicum.filmorate.service.FilmService;
+import ru.yandex.practicum.filmorate.storage.impl.FilmDbStorage;
+import ru.yandex.practicum.filmorate.storage.impl.UserDbStorage;
 
 import java.time.LocalDate;
 
@@ -12,12 +16,14 @@ class FilmControllerTest {
     private FilmController filmController;
     private Film film;
 
-//    @BeforeEach
-//    void init() {
-//        filmController = new FilmController();
-//        film = new Film(0L, "name", "description", LocalDate.now(), 1,
-//                null, null, 0);
-//    }
+    @BeforeEach
+    void init() {
+        JdbcTemplate jdbcTemplate = new JdbcTemplate();
+        filmController = new FilmController(new FilmService(
+                new FilmDbStorage(jdbcTemplate), new UserDbStorage(jdbcTemplate)));
+        film = new Film(0L, "name", LocalDate.now(), "description", 1,
+                null, null);
+    }
 
     @Test
     void emptyNameTest() {

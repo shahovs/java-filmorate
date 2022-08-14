@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS mpa(
-    mpa_id INTEGER --auto_increment
+    mpa_id INTEGER
     primary key,
     mpa_name VARCHAR(8) NOT NULL
     );
