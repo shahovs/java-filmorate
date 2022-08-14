@@ -3,7 +3,7 @@ package ru.yandex.practicum.filmorate.storage.impl;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import ru.yandex.practicum.filmorate.exception.ObjectNotFoundException;
-import ru.yandex.practicum.filmorate.model.Mpa;
+import ru.yandex.practicum.filmorate.model.MPA;
 
 import java.sql.ResultSet;
 import java.util.List;
@@ -16,10 +16,10 @@ public class MpaDbStorage {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public Mpa getMpa(int mpaId) {
+    public MPA getMpa(int mpaId) {
         String sqlQuery = "select MPA_ID, MPA_NAME from MPA where MPA_ID = ?";
-        List<Mpa> mpa = jdbcTemplate.query(sqlQuery, (ResultSet resultSet, int rowNum) ->
-                        new Mpa(
+        List<MPA> mpa = jdbcTemplate.query(sqlQuery, (ResultSet resultSet, int rowNum) ->
+                        new MPA(
                                 resultSet.getInt("MPA_ID"),
                                 resultSet.getString("MPA_NAME")),
                 mpaId);
@@ -29,10 +29,10 @@ public class MpaDbStorage {
         return mpa.get(0);
     }
 
-    public List<Mpa> getAllMpa() {
+    public List<MPA> getAllMpa() {
         String sqlQuery = "select MPA_ID, MPA_NAME from MPA";
         return jdbcTemplate.query(sqlQuery, (ResultSet resultSet, int rowNum) ->
-                new Mpa(
+                new MPA(
                         resultSet.getInt("MPA_ID"),
                         resultSet.getString("MPA_NAME"))
         );

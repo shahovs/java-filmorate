@@ -6,7 +6,7 @@ import ru.yandex.practicum.filmorate.exception.FilmIsNotExistException;
 import ru.yandex.practicum.filmorate.exception.UserIsNotExistException;
 import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.model.Genre;
-import ru.yandex.practicum.filmorate.model.Mpa;
+import ru.yandex.practicum.filmorate.model.MPA;
 import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.storage.FilmStorage;
 import ru.yandex.practicum.filmorate.storage.UserStorage;
@@ -92,11 +92,11 @@ public class FilmService {
         return films;
     }
 
-    public Mpa getMpa(int mpaId) {
+    public MPA getMpa(int mpaId) {
         return mpaDbStorage.getMpa(mpaId);
     }
 
-    public List<Mpa> getAllMpa() {
+    public List<MPA> getAllMpa() {
         return mpaDbStorage.getAllMpa();
     }
 

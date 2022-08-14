@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import ru.yandex.practicum.filmorate.exception.FilmIsNotExistException;
 import ru.yandex.practicum.filmorate.exception.ObjectNotFoundException;
 import ru.yandex.practicum.filmorate.model.Film;
-import ru.yandex.practicum.filmorate.model.Mpa;
+import ru.yandex.practicum.filmorate.model.MPA;
 import ru.yandex.practicum.filmorate.storage.FilmStorage;
 
 import java.sql.*;
@@ -46,7 +46,7 @@ public class FilmDbStorage implements FilmStorage {
                 resultSet.getDate("release_date").toLocalDate(),
                 resultSet.getString("description"),
                 resultSet.getInt("duration"),
-                new Mpa(resultSet.getInt("mpa_id"), resultSet.getString("mpa_name")),
+                new MPA(resultSet.getInt("mpa_id"), resultSet.getString("mpa_name")),
                 null
         );
     }

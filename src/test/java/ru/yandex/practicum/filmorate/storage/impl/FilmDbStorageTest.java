@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 import ru.yandex.practicum.filmorate.model.Film;
-import ru.yandex.practicum.filmorate.model.Mpa;
+import ru.yandex.practicum.filmorate.model.MPA;
 
 import java.time.LocalDate;
 
@@ -24,7 +24,7 @@ class FilmDbStorageTest {
     @BeforeEach
     void init() {
         Film film = new Film(0L, "name", LocalDate.now(), "description", 1,
-                new Mpa(1, ""), null);
+                new MPA(1, ""), null);
         filmDbStorage.saveFilm(film);
     }
 

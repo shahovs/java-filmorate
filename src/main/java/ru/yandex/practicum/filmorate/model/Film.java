@@ -19,6 +19,6 @@ public class Film {
     private LocalDate releaseDate;
     private String description;
     private int duration;
-    private Mpa mpa;
+    private MPA mpa;
     private LinkedHashSet<Genre> genres;
 }
