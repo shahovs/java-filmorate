@@ -10,13 +10,12 @@ import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.storage.UserStorage;
 
 import java.sql.*;
-import java.sql.Date;
 import java.time.LocalDate;
-import java.util.*;
+import java.util.Collection;
+import java.util.Objects;
 
 @Component
 @Primary
-//@Qualifier("userDbStorage")
 public class UserDbStorage implements UserStorage {
 
     private final JdbcTemplate jdbcTemplate;
@@ -102,7 +101,7 @@ public class UserDbStorage implements UserStorage {
         }
     }
 
-    @Override
+   /* @Override
     public void addFriend(Long userId, Long friendId) {
         String sqlQuery =
                 "merge into FRIENDSHIPS (user_id, friend_id) " + // можно insert into
@@ -147,24 +146,8 @@ public class UserDbStorage implements UserStorage {
                 "or FRIENDSHIPS.USER_ID = ?) " +
                 "and FRIEND_ID != ? " +
                 "and FRIEND_ID != ?";
-        return jdbcTemplate.query(sqlQuery, UserDbStorage::mapRowToUser, firstUserId, secondUserId, firstUserId, secondUserId);
-
-//        Set<Long> commonFriendsIds = new HashSet<>();
-//        commonFriendsIds.addAll(jdbcTemplate.query(sqlQuery,
-//                (ResultSet resultSet, int rowNum) -> resultSet.getLong("friend_id"),
-//                firstUserId));
-//        commonFriendsIds.addAll(jdbcTemplate.query(sqlQuery,
-//                (ResultSet resultSet, int rowNum) -> resultSet.getLong("friend_id"),
-//                secondUserId));
-//
-//        commonFriendsIds.remove(firstUserId);
-//        commonFriendsIds.remove(secondUserId);
-//
-//        List<User> commonFriends = new ArrayList<>();
-//        for (Long id : commonFriendsIds) {
-//            commonFriends.add(getUser(id));
-//        }
-//        return commonFriends;
+        return jdbcTemplate.query(sqlQuery, UserDbStorage::mapRowToUser,
+                firstUserId, secondUserId, firstUserId, secondUserId);
     }
-
+*/
 }

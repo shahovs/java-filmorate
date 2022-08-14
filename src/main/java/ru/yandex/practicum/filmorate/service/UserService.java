@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import ru.yandex.practicum.filmorate.exception.UserIsNotExistException;
 import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.storage.UserStorage;
+import ru.yandex.practicum.filmorate.storage.impl.FriendshipDbStorage;
 
 import java.util.Collection;
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.List;
 public class UserService {
 
     private final UserStorage userStorage;
+    private final FriendshipDbStorage friendshipDbStorage;
 
     public User getUser(Long userId) {
         User user = userStorage.getUser(userId);
@@ -49,46 +51,19 @@ public class UserService {
     }
 
     public void addFriend(Long userId, Long friendId) {
-//        User user = userStorage.getUser(userId);
-//        User friend = userStorage.getUser(friendId);
-//        if (user != null && friend != null) {
-//            userStorage.addFriend(user, friend);
-//        } else {
-//            throw new UserIsNotExistException("One or two users do not exist");
-//        }
-        userStorage.addFriend(userId, friendId);
+        friendshipDbStorage.addFriend(userId, friendId);
     }
 
     public void deleteFriend(Long userId, Long friendId) {
-//        User user = userStorage.getUser(userId);
-//        User friend = userStorage.getUser(friendId);
-//        if (user != null && friend != null) {
-//            userStorage.deleteFriend(user, friend);
-//        } else {
-//            throw new UserIsNotExistException("One or two users do not exist");
-//        }
-        userStorage.deleteFriend(userId, friendId);
+        friendshipDbStorage.deleteFriend(userId, friendId);
     }
 
     public Collection<User> getAllFriends(Long userId) {
-//        User user = userStorage.getUser(userId);
-//        if (user != null) {
-//            return userStorage.getAllFriends(user);
-//        } else {
-//            throw new UserIsNotExistException("This user does not exists");
-//        }
-        return userStorage.getAllFriends(userId);
+        return friendshipDbStorage.getAllFriends(userId);
     }
 
     public List<User> getCommonFriends(Long firstUserId, Long secondUserId) {
-//        User firstUser = userStorage.getUser(firstUserId);
-//        User secondUser = userStorage.getUser(secondUserId);
-//        if (firstUser != null && secondUser != null) {
-//            return userStorage.getCommonFriends(firstUser, secondUser);
-//        } else {
-//            throw new UserIsNotExistException("One or two users do not exist");
-//        }
-        return userStorage.getCommonFriends(firstUserId, secondUserId);
+        return friendshipDbStorage.getCommonFriends(firstUserId, secondUserId);
     }
 
 }

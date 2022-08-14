@@ -1,15 +1,17 @@
 package ru.yandex.practicum.filmorate.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import ru.yandex.practicum.filmorate.model.User;
-import ru.yandex.practicum.filmorate.service.UserService;
-import ru.yandex.practicum.filmorate.storage.impl.UserDbStorage;
 
 import java.time.LocalDate;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+@SpringBootTest
+@RequiredArgsConstructor(onConstructor_ = @Autowired)
 
 class UserControllerTest {
     private UserController userController;
@@ -17,7 +19,6 @@ class UserControllerTest {
 
     @BeforeEach
     void init() {
-        userController = new UserController(new UserService(new UserDbStorage(new JdbcTemplate())));
         user = new User(0L, "login", "name", "email@email.com", LocalDate.now());
     }
 

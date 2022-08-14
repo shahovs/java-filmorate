@@ -1,26 +1,24 @@
 package ru.yandex.practicum.filmorate.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import ru.yandex.practicum.filmorate.model.Film;
-import ru.yandex.practicum.filmorate.service.FilmService;
-import ru.yandex.practicum.filmorate.storage.impl.FilmDbStorage;
-import ru.yandex.practicum.filmorate.storage.impl.UserDbStorage;
 
 import java.time.LocalDate;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
+@SpringBootTest
+@RequiredArgsConstructor(onConstructor_ = @Autowired)
 class FilmControllerTest {
-    private FilmController filmController;
+    private final FilmController filmController;
     private Film film;
 
     @BeforeEach
     void init() {
-        JdbcTemplate jdbcTemplate = new JdbcTemplate();
-        filmController = new FilmController(new FilmService(
-                new FilmDbStorage(jdbcTemplate), new UserDbStorage(jdbcTemplate)));
         film = new Film(0L, "name", LocalDate.now(), "description", 1,
                 null, null);
     }

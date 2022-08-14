@@ -4,14 +4,11 @@ import lombok.*;
 
 import java.time.LocalDate;
 import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Set;
 
 @Getter
 @Setter
 @ToString
-@EqualsAndHashCode//(of = "id")
-//@NoArgsConstructor
+@EqualsAndHashCode
 @AllArgsConstructor
 public class Film {
 
@@ -24,7 +21,4 @@ public class Film {
     private int duration;
     private Mpa mpa;
     private LinkedHashSet<Genre> genres;
-    //    @JsonIgnore
-//    private final Set<Long> usersIdsLikes = new HashSet<>();
-
 }
