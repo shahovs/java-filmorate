@@ -17,6 +17,7 @@ import java.util.Objects;
 
 @Component
 public class FilmDbStorage implements FilmStorage {
+
     private final JdbcTemplate jdbcTemplate;
 
     public FilmDbStorage(JdbcTemplate jdbcTemplate) {

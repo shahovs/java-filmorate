@@ -4,17 +4,18 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.model.User;
+import ru.yandex.practicum.filmorate.storage.LikeStorage;
 
 import java.util.List;
 
 @Component
-public class LikeDbStorage {
+public class LikeDbStorage implements LikeStorage {
+
     private final JdbcTemplate jdbcTemplate;
 
     public LikeDbStorage(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
-
 
     public void likeFilm(Film film, User user) {
         String sqlQuery = "insert into LIKES (USER_ID, FILM_ID) values (?, ?)";

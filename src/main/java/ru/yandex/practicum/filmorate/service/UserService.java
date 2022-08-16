@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import ru.yandex.practicum.filmorate.exception.UserIsNotExistException;
 import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.storage.UserStorage;
-import ru.yandex.practicum.filmorate.storage.impl.FriendshipDbStorage;
+import ru.yandex.practicum.filmorate.storage.FriendshipStorage;
 
 import java.util.Collection;
 import java.util.List;
@@ -15,7 +15,7 @@ import java.util.List;
 public class UserService {
 
     private final UserStorage userStorage;
-    private final FriendshipDbStorage friendshipDbStorage;
+    private final FriendshipStorage friendshipStorage;
 
     public User getUser(Long userId) {
         User user = userStorage.getUser(userId);
@@ -51,19 +51,19 @@ public class UserService {
     }
 
     public void addFriend(Long userId, Long friendId) {
-        friendshipDbStorage.addFriend(userId, friendId);
+        friendshipStorage.addFriend(userId, friendId);
     }
 
     public void deleteFriend(Long userId, Long friendId) {
-        friendshipDbStorage.deleteFriend(userId, friendId);
+        friendshipStorage.deleteFriend(userId, friendId);
     }
 
     public Collection<User> getAllFriends(Long userId) {
-        return friendshipDbStorage.getAllFriends(userId);
+        return friendshipStorage.getAllFriends(userId);
     }
 
     public List<User> getCommonFriends(Long firstUserId, Long secondUserId) {
-        return friendshipDbStorage.getCommonFriends(firstUserId, secondUserId);
+        return friendshipStorage.getCommonFriends(firstUserId, secondUserId);
     }
 
 }

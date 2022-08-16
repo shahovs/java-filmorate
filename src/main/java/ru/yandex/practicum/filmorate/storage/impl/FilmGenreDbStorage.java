@@ -4,12 +4,14 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.model.Genre;
+import ru.yandex.practicum.filmorate.storage.FilmGenreStorage;
 
 import java.sql.ResultSet;
 import java.util.LinkedHashSet;
 
 @Component
-public class FilmGenreDbStorage {
+public class FilmGenreDbStorage implements FilmGenreStorage {
+
     private final JdbcTemplate jdbcTemplate;
 
     public FilmGenreDbStorage(JdbcTemplate jdbcTemplate) {
