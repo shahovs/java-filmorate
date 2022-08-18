@@ -1,17 +1,14 @@
 package ru.yandex.practicum.filmorate.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.LinkedHashSet;
 
 @Getter
 @Setter
 @ToString
 @EqualsAndHashCode
-@NoArgsConstructor
 @AllArgsConstructor
 public class Film {
 
@@ -19,11 +16,9 @@ public class Film {
     private Long id;
 
     private String name;
-    private String description;
     private LocalDate releaseDate;
+    private String description;
     private int duration;
-
-    @JsonIgnore
-    private final Set<Long> usersIdsLikes = new HashSet<>();
-
+    private MPA mpa;
+    private LinkedHashSet<Genre> genres;
 }

@@ -1,9 +1,9 @@
 package ru.yandex.practicum.filmorate.controller;
 
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import ru.yandex.practicum.filmorate.exception.*;
+import ru.yandex.practicum.filmorate.exception.UserIsNotCorrectException;
 import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.service.UserService;
 
@@ -14,10 +14,10 @@ import java.util.List;
 @RestController
 @RequestMapping("/users")
 @Slf4j
+@AllArgsConstructor
 public class UserController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
     @GetMapping("/{userId}")
     public User getUser(@PathVariable Long userId) {
@@ -26,43 +26,23 @@ public class UserController {
     }
 
     @GetMapping
-    public Collection<User> getAllUsers() {
+    public List<User> getAllUsers() {
         log.info("Получен запрос к эндпоинту: GET /users/");
         return userService.getAllUsers();
     }
 
     @PostMapping
-    public User createUser(@RequestBody User user) {
+    public User saveUser(@RequestBody User user) {
         log.info("Получен запрос к эндпоинту: POST /users, Создан объект из тела запроса:'{}'", user);
         validateUser(user);
-        User createdUser = userService.createUser(user);
-        return createdUser;
-    }
-
-    void validateUser(User user) {
-        final String EMPTY_STRING = "";
-        String email = user.getEmail();
-        if (EMPTY_STRING.equals(email) || !email.contains("@")) {
-            log.warn("Исключение. Email is wrong. Объект из тела запроса:'{}'", user);
-            throw new UserIsNotCorrectException("User is not correct. Email is wrong.");
-        }
-        String login = user.getLogin();
-        if (EMPTY_STRING.equals(login) || login.contains(" ")) {
-            log.warn("Исключение. Login is wrong. Объект из тела запроса:'{}'", user);
-            throw new UserIsNotCorrectException("User is not correct. Login is wrong.");
-        }
-        if (user.getBirthday().isAfter(LocalDate.now())) {
-            log.warn("Исключение. Birthday is wrong. Объект из тела запроса:'{}'", user);
-            throw new UserIsNotCorrectException("User is not correct. Birthday is wrong");
-        }
+        return userService.saveUser(user);
     }
 
     @PutMapping
     public User updateUser(@RequestBody User user) {
         log.info("Получен запрос к эндпоинту: PUT /users, Создан объект из тела запроса:'{}'", user);
         validateUser(user);
-        User updatedUser = userService.updateUser(user);
-        return updatedUser;
+        return userService.updateUser(user);
     }
 
     @PutMapping("/{id}/friends/{friendId}")
@@ -89,6 +69,24 @@ public class UserController {
             @PathVariable("otherId") Long secondUserId) {
         log.info("Получен запрос к эндпоинту: GET /users/{}/friends/common/{}", firstUserId, secondUserId);
         return userService.getCommonFriends(firstUserId, secondUserId);
+    }
+
+    void validateUser(User user) {
+        final String EMPTY_STRING = "";
+        String email = user.getEmail();
+        if (EMPTY_STRING.equals(email) || !email.contains("@")) {
+            log.warn("Исключение. Email is wrong. Объект из тела запроса:'{}'", user);
+            throw new UserIsNotCorrectException("User is not correct. Email is wrong.");
+        }
+        String login = user.getLogin();
+        if (EMPTY_STRING.equals(login) || login.contains(" ")) {
+            log.warn("Исключение. Login is wrong. Объект из тела запроса:'{}'", user);
+            throw new UserIsNotCorrectException("User is not correct. Login is wrong.");
+        }
+        if (user.getBirthday().isAfter(LocalDate.now())) {
+            log.warn("Исключение. Birthday is wrong. Объект из тела запроса:'{}'", user);
+            throw new UserIsNotCorrectException("User is not correct. Birthday is wrong");
+        }
     }
 
 }

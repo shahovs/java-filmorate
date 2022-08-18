@@ -1,21 +1,26 @@
 package ru.yandex.practicum.filmorate.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import ru.yandex.practicum.filmorate.model.Film;
 
 import java.time.LocalDate;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
+@SpringBootTest
+@RequiredArgsConstructor(onConstructor_ = @Autowired)
 class FilmControllerTest {
-    private FilmController filmController;
+    private final FilmController filmController;
     private Film film;
 
     @BeforeEach
     void init() {
-        filmController = new FilmController();
-        film = new Film(0L, "name", "description", LocalDate.now(), 1);
+        film = new Film(0L, "name", LocalDate.now(), "description", 1,
+                null, null);
     }
 
     @Test
